@@ -53,15 +53,19 @@ call plug#begin()
 
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+    Plug 'nvim-tree/nvim-tree.lua'
+    Plug 'nvim-tree/nvim-web-devicons'
+
 call plug#end()
 
 " ------------------------------------------------------------------------------
-" Telescope Maps
+" Plugin Maps
 " ------------------------------------------------------------------------------
 
 nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <C-o> :Telescope live_grep<cr>
-
+nnoremap <C-t> :NvimTreeOpen<cr>
+nnoremap <C-y> :NvimTreeClose<cr>
 
 " ------------------------------------------------------------------------------
 " CoC Maps & Functions
@@ -99,7 +103,32 @@ let g:airline_theme='molokai'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
+" ------------------------------------------------------------------------------
+" Lua Configuration
+" ------------------------------------------------------------------------------
 lua << EOF
 	require('monokai').setup { italics = false }
+
+
+    -- disable netrw at the very start of your init.lua
+    vim.g.loaded_netrw = 1
+    vim.g.loaded_netrwPlugin = 1
+
+    -- set termguicolors to enable highlight groups
+    vim.opt.termguicolors = true
+
+    -- empty setup using defaults
+    require("nvim-tree").setup({
+        sort_by = "case_sensitive",
+        view = {
+            width = 40,
+        },
+        renderer = {
+            group_empty = true,
+        },
+        filters = {
+            dotfiles = true,
+        },
+    })
 EOF
 
