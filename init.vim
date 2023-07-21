@@ -1,4 +1,7 @@
 
+" ------------------------------------------------------------------------------
+" General Configuration
+" ------------------------------------------------------------------------------
 set ts=4
 set sw=4
 set expandtab
@@ -6,6 +9,37 @@ set expandtab
 set relativenumber number 
 set mouse=
 set colorcolumn=80
+
+nnoremap <C-i> :bnext<cr>
+nnoremap <S-tab> :bprevious<cr>
+
+" ------------------------------------------------------------------------------
+" :ConfigEnvironment "env name"
+"       This is the primary function which allows for dynamically loading any
+"       environments stored within the configuration folder.
+" ------------------------------------------------------------------------------
+function Configenv(...)
+    " Ensure that we have the correct number of arguments.
+    if a:0 < 1
+        return
+    endif
+
+    " Attempt to source the argument.
+    let root_path = "~/Development/Tools/nvim-conf/"
+    let root_path = root_path . a:1
+    let root_path = root_path . "_config.vim"
+
+    let execution_command = "source "
+    let execution_command = execution_command . root_path
+    
+    echo "Loading " . root_path . " into source."
+    exec execution_command
+endfunction
+command! -nargs=1 ConfigEnvironment call Configenv(<args>)
+
+" ------------------------------------------------------------------------------
+" Vim Plug Setup & Installations
+" ------------------------------------------------------------------------------
 
 call plug#begin()
 
@@ -21,8 +55,17 @@ call plug#begin()
 
 call plug#end()
 
+" ------------------------------------------------------------------------------
+" Telescope Maps
+" ------------------------------------------------------------------------------
+
 nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <C-o> :Telescope live_grep<cr>
+
+
+" ------------------------------------------------------------------------------
+" CoC Maps & Functions
+" ------------------------------------------------------------------------------
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -51,8 +94,6 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-nnoremap <C-i> :bnext<cr>
 
 let g:airline_theme='molokai'
 let g:airline#extensions#tabline#enabled = 1
