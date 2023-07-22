@@ -13,29 +13,9 @@ set colorcolumn=80
 nnoremap <C-i> :bnext<cr>
 nnoremap <S-tab> :bprevious<cr>
 
-" ------------------------------------------------------------------------------
-" :ConfigEnvironment "env name"
-"       This is the primary function which allows for dynamically loading any
-"       environments stored within the configuration folder.
-" ------------------------------------------------------------------------------
-function Configenv(...)
-    " Ensure that we have the correct number of arguments.
-    if a:0 < 1
-        return
-    endif
-
-    " Attempt to source the argument.
-    let root_path = "~/Development/Tools/nvim-conf/"
-    let root_path = root_path . a:1
-    let root_path = root_path . "_config.vim"
-
-    let execution_command = "source "
-    let execution_command = execution_command . root_path
-    
-    echo "Loading " . root_path . " into source."
-    exec execution_command
-endfunction
-command! -nargs=1 ConfigEnvironment call Configenv(<args>)
+nnoremap <C-b> :! ./build.sh
+nnoremap <F5> :! ./run.sh
+nnoremap <F8> :! ./debug.sh
 
 " ------------------------------------------------------------------------------
 " Vim Plug Setup & Installations
@@ -53,9 +33,6 @@ call plug#begin()
 
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-    Plug 'nvim-tree/nvim-tree.lua'
-    Plug 'nvim-tree/nvim-web-devicons'
-
 call plug#end()
 
 " ------------------------------------------------------------------------------
@@ -64,8 +41,6 @@ call plug#end()
 
 nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <C-o> :Telescope live_grep<cr>
-nnoremap <C-t> :NvimTreeOpen<cr>
-nnoremap <C-y> :NvimTreeClose<cr>
 
 " ------------------------------------------------------------------------------
 " CoC Maps & Functions
@@ -117,18 +92,5 @@ lua << EOF
     -- set termguicolors to enable highlight groups
     vim.opt.termguicolors = true
 
-    -- empty setup using defaults
-    require("nvim-tree").setup({
-        sort_by = "case_sensitive",
-        view = {
-            width = 40,
-        },
-        renderer = {
-            group_empty = true,
-        },
-        filters = {
-            dotfiles = true,
-        },
-    })
 EOF
 
