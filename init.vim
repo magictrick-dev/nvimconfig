@@ -52,6 +52,10 @@ let g:airline_powerline_fonts = 1
 " ------------------------------------------------------------------------------
 " Lua Configuration
 " ------------------------------------------------------------------------------
+
+" Force COQ to auto load.
+let g:coq_settings = { 'auto_start': 'shut-up' }
+
 lua << EOF
 
     -- Use monokai pro, disable irritating italics for comments
@@ -68,5 +72,3 @@ lua << EOF
 	require("coq")
 EOF
 
-
-let g:coq_settings = { 'auto_start': 'shut-up' }
