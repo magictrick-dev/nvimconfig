@@ -53,6 +53,8 @@ let g:airline_powerline_fonts = 1
 " Lua Configuration
 " ------------------------------------------------------------------------------
 lua << EOF
+
+    -- Use monokai pro, disable irritating italics for comments
 	require('monokai').setup { palette = require('monokai').pro, italics = false }
 
     -- disable netrw at the very start of your init.lua
@@ -66,3 +68,5 @@ lua << EOF
 	require("coq")
 EOF
 
+
+let g:coq_settings = { 'auto_start': 'shut-up' }
