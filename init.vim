@@ -8,6 +8,7 @@ set expandtab
 set relativenumber number 
 set mouse=
 set colorcolumn=80
+set cursorline
 
 nnoremap <C-i> :bnext<cr>
 nnoremap <S-tab> :bprevious<cr>
