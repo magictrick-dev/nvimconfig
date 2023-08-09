@@ -11,6 +11,7 @@ set colorcolumn=80
 
 nnoremap <C-i> :bnext<cr>
 nnoremap <S-tab> :bprevious<cr>
+nnoremap <C-k><C-k> :bp<bar>sp<bar>bn<bar>bd<CR>
 
 " ------------------------------------------------------------------------------
 " Vim Plug Setup & Installations
