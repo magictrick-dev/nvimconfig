@@ -1,3 +1,12 @@
+local function find_buffer_by_name(bufferName)
+    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+        local bufName = vim.fn.bufname(buf)
+        if bufName == bufferName then
+            return buf
+        end
+    end
+    return nil
+end
 
 local function process_build_script(argument)
 
@@ -18,10 +27,21 @@ local function process_build_script(argument)
     local win_amount = #vim.api.nvim_tabpage_list_wins(0)
     if win_amount == 1 then
         vim.api.nvim_command("vsplit")
+    else
+        switchToNextWindow()
     end
 
-    -- Create a buffer to print to.
-    local current_buffer = vim.api.nvim_create_buf(false, true)
+    -- Find the current scratch buffer or make one.
+    local current_buffer = find_buffer_by_name("Scratch")
+    if not current_buffer then
+        current_buffer = vim.api.nvim_create_buf(true, true)
+        vim.api.nvim_buf_set_name(current_buffer, "Scratch")
+    end
+
+    -- Clear the scratch buffer.
+    vim.api.nvim_buf_set_lines(current_buffer, 0, -1, false, {})
+
+    -- Set the current buffer.
     vim.api.nvim_set_current_buf(current_buffer)
 
     -- Set the line-endings for this buffer.

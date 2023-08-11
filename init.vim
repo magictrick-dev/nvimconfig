@@ -15,12 +15,16 @@ nnoremap <C-i> :bnext<cr>
 nnoremap <S-tab> :bprevious<cr>
 nnoremap <C-k><C-k> :bp\|bd #<CR>
 
-nnoremap <C-b> :CJHScriptRun pwsh.exe ./build.ps1<cr>
-nnoremap <C-a><C-a> :CJHJumpTo<cr>
-
-nnoremap <F5> :!pwsh.exe ./run.ps1<cr>
-nnoremap <F8> :!pwsh.exe ./debug.ps1<cr>
-nnoremap <F3> :!explorer .<cr>
+" ------------------------------------------------------------------------------
+" Windows Keymaps
+" ------------------------------------------------------------------------------
+if has('win32')
+    nnoremap <C-b> :CJHBuild pwsh.exe ./build.ps1<cr>
+    nnoremap <C-a><C-a> :CJHJumpTo<cr>
+    nnoremap <F5> :!pwsh.exe ./run.ps1<cr>
+    nnoremap <F8> :!pwsh.exe ./debug.ps1<cr>
+    nnoremap <F3> :!explorer .<cr>
+endif
 
 
 " ------------------------------------------------------------------------------
@@ -56,7 +60,7 @@ nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <C-o> :Telescope live_grep<cr>
 nnoremap <C-l> :NERDTreeRefreshRoot<cr>:NERDTreeToggle<cr>
 
-command! -nargs=? CJHScriptRun lua require("CJH").build_script(<f-args>)
+command! -nargs=? CJHBuild lua require("CJH").build_script(<f-args>)
 command! CJHJumpTo lua require("CJH").jump_to()
 
 let g:airline_theme='molokai'
