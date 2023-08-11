@@ -22,30 +22,27 @@ iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
     ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
 ```
 
-### Installing Plugins
+Once complete, you can execute `PlugInstall` within Neovim to retrieve the plugins.
 
-Once you have VimPlug, you will now need to source the `init.vim` and, optionally,
-the platform scripts that I use for development on Linux/Windows. In your respective
-init locations for nvim (`~/.config/nvim/init.vim` for Linux and `%APPDATA%/local/nvim/init.vim`
-for Windows), add the lines:
+### Custom Plugins
 
-Unix:
-```
-source ~/path/to/repo/init.vim
-source ~/path/to/repo/linux_config.vim
-```
+I will add my own custom plugins from time to time. Here is the short documentation of them.
 
-Windows:
-```
-source C:\Path\To\Repo\init.vim
-source C:\Path\To\Repo\windows_config.vim
-```
+**CJH** Compile-Jump-Helper:
 
-The reason I have separate configs for different OS platforms is because Windows
-and Unix use different scripting languages. Rather than trying to write a huge
-vimscript file just to determine OS, build types, and language environments,
-it is much easier to simply write a script in the respective OS scripting languages
-and executing them using a nvim shell command.
+    CJH is a utility that allows users to execute commands (particularly build scripts)
+    and dumps them to a scratch buffer. From there, CJH provides a jump-to command which
+    parses the current line a cursor is on and attempts to determine if it is a compiler
+    error with a file location and line number/cursor location. It will then jump
+    straight to that file for you.
+
+    When you recompile, it will attempt to find an existing scratch buffer and dump
+    to that rather than regenerating a new scratch buffer.
+
+    This utility was designed for MSVC's error output, so g++/clang error output
+    matching currently isn't tested/support.
+
+![](assets/CJHDemo.gif)
 
 ### License
 
