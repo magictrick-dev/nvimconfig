@@ -34,7 +34,7 @@ local function process_build_script(argument)
     -- Find the current scratch buffer or make one.
     local current_buffer = find_buffer_by_name("Scratch")
     if not current_buffer then
-        current_buffer = vim.api.nvim_create_buf(true, true)
+        current_buffer = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_buf_set_name(current_buffer, "Scratch")
     end
 
