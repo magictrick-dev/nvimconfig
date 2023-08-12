@@ -55,9 +55,6 @@ local function process_build_script(argument)
     -- Set the current buffer.
     vim.api.nvim_set_current_buf(current_buffer)
 
-    -- Set the line-endings for this buffer.
-    vim.api.nvim_command("set ffs=dos")
-
     -- Start the job.
     local job_identifier = vim.fn.jobstart(argument, {
         on_stdout = function(_, data)
