@@ -15,6 +15,7 @@ function is_buffer_active(buffer_number)
     return buffer_number == buffer_in_active_window
 end
 
+
 local function process_build_script(argument)
 
     -- Supporting null-argument values, check for that.
@@ -110,7 +111,7 @@ local function process_jump_to()
     local current_line_content = vim.fn.getline('.')
 
     -- Establish our line search pattern.
-    local pattern = "^[A-Za-z0-9:\\/]*%.[A-Za-z]*%([0-9,]*%):"
+    local pattern = "^[A-Za-z0-9:\\/_]*%.[A-Za-z]*%([0-9,]*%):"
     local contains_pattern,end_pattern = string.find(current_line_content, pattern)
 
     -- If we found our pattern, then we can attempt to see if it is jumpable.
@@ -120,7 +121,7 @@ local function process_jump_to()
         local sub_string = string.sub(current_line_content, contains_pattern, end_pattern)
 
         -- Pull the useable path from the output.
-        local path_s, path_e = string.find(sub_string, "[A-Za-z0-9\\/:]*%.[A-Za-z]*%(")
+        local path_s, path_e = string.find(sub_string, "[A-Za-z0-9\\/_:]*%.[A-Za-z]*%(")
         local path = string.sub(sub_string, path_s, path_e-1)
 
         -- Determine the line positions. This may just be a line, or line + col.

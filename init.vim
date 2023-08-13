@@ -62,6 +62,7 @@ nnoremap <C-l> :NERDTreeRefreshRoot<cr>:NERDTreeToggle<cr>
 
 command! -nargs=? CJHBuild lua require("CJH").build_script(<f-args>)
 command! CJHJumpTo lua require("CJH").jump_to()
+command! -nargs=? GitCommit lua require("githelper").git_committer(<f-args>)
 
 let g:airline_theme='molokai'
 let g:airline#extensions#tabline#enabled = 1
@@ -75,10 +76,6 @@ let g:airline_powerline_fonts = 1
 let g:coq_settings = { 'auto_start': 'shut-up' }
 
 lua << EOF
-
-    -- Load custom modules.
-    package.loaded["CJH"] = nil
-    require("CJH")
 
     -- Use monokai pro, disable irritating italics for comments
 	require('monokai').setup { palette = require('monokai').pro, italics = false }
