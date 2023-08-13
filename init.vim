@@ -19,10 +19,10 @@ nnoremap <C-k><C-k> :bp\|bd #<CR>
 " Windows Keymaps
 " ------------------------------------------------------------------------------
 if has('win32')
-    nnoremap <C-b> :CJHBuild pwsh.exe ./build.ps1<cr>
+    nnoremap <C-b> :CJHBuild cmake --build ./build<cr>
     nnoremap <C-a><C-a> :CJHJumpTo<cr>
-    nnoremap <F5> :!pwsh.exe ./run.ps1<cr>
-    nnoremap <F8> :!pwsh.exe ./debug.ps1<cr>
+    nnoremap <F5> :!./run.ps1<cr>
+    nnoremap <F8> :!./debug.ps1<cr>
     nnoremap <F3> :!explorer .<cr>
 endif
 
