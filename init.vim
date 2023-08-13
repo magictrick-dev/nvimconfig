@@ -21,8 +21,8 @@ nnoremap <C-k><C-k> :bp\|bd #<CR>
 if has('win32')
     nnoremap <C-b> :CJHBuild cmake --build ./build<cr>
     nnoremap <C-a><C-a> :CJHJumpTo<cr>
-    nnoremap <F5> :!./run.ps1<cr>
-    nnoremap <F8> :!./debug.ps1<cr>
+    nnoremap <F5> :!pwsh ./run.ps1<cr>
+    nnoremap <F8> :!pwsh ./debug.ps1<cr>
     nnoremap <F3> :!explorer .<cr>
 endif
 
