@@ -111,7 +111,7 @@ local function process_jump_to()
     local current_line_content = vim.fn.getline('.')
 
     -- Establish our line search pattern.
-    local pattern = "^[A-Za-z0-9:\\/_]*%.[A-Za-z]*%([0-9,]*%):"
+    local pattern = "^[A-Za-z0-9:\\/_-]*%.[A-Za-z]*%([0-9,]*%):"
     local contains_pattern,end_pattern = string.find(current_line_content, pattern)
 
     -- If we found our pattern, then we can attempt to see if it is jumpable.
@@ -121,7 +121,7 @@ local function process_jump_to()
         local sub_string = string.sub(current_line_content, contains_pattern, end_pattern)
 
         -- Pull the useable path from the output.
-        local path_s, path_e = string.find(sub_string, "[A-Za-z0-9\\/_:]*%.[A-Za-z]*%(")
+        local path_s, path_e = string.find(sub_string, "[A-Za-z0-9:\\/_-]*%.[A-Za-z]*%(")
         local path = string.sub(sub_string, path_s, path_e-1)
 
         -- Determine the line positions. This may just be a line, or line + col.
@@ -142,8 +142,7 @@ local function process_jump_to()
         -- Open the file.
         local open_command = "e " .. path .. "|call cursor(" .. cursor_command .. ")"
         vim.cmd(open_command)
-
-
+        
     else
 
         -- Inform the user that the line wasn't a jumpable line.
