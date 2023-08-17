@@ -45,9 +45,6 @@ call plug#begin()
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
 
- 	Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
-	Plug 'ms-jpq/coq.artifacts', {'branch': 'artifacts'}
-
 	Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 
 	Plug 'preservim/nerdtree'
@@ -74,9 +71,6 @@ let g:airline_powerline_fonts = 1
 " Lua Configuration
 " ------------------------------------------------------------------------------
 
-" Force COQ to auto load.
-let g:coq_settings = { 'auto_start': 'shut-up' }
-
 lua << EOF
 
     -- Use monokai pro, disable irritating italics for comments
@@ -89,8 +83,9 @@ lua << EOF
     -- set termguicolors to enable highlight groups
     vim.opt.termguicolors = true
 
+    require'nvim-treesitter.install'.compilers = { 'cl' }
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "c", "cpp", "lua"  },
+        ensure_installed = { "c", "cpp", },
 
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
@@ -107,9 +102,6 @@ lua << EOF
             additional_vim_regex_highlighting = false,
         },
     }
-
-
-
 
 EOF
 

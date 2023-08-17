@@ -4,6 +4,15 @@
 This is my personal Neovim init script. If you want to use this setup, clone it
 somewhere accessible that you can `source` via absolute path.
 
+If you're using Windows with Visual Studio / MSVC, you will want access to the
+MSVC build tools set of commands with PowerShell. In order to do this, you will
+need to source the commands to path with your PowerShell profile script using:
+
+```
+Import-Module "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"
+Enter-VsDevShell -VsInstallPath "C:\Program Files\Microsoft Visual Studio\2022\Community" -DevCmdArguments '-arch=x64'
+```
+
 ### Using VimPlug
 
 I use a plugin manager called VimPlug to fetch third-party plugins. You will need
