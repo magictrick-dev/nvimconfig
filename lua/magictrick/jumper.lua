@@ -1,3 +1,8 @@
+
+local configuration = {
+    default_script
+}
+
 local function find_buffer_by_name(bufferName)
     for _, buf in ipairs(vim.api.nvim_list_bufs()) do
         local bufName = vim.fn.bufname(buf)
@@ -16,20 +21,21 @@ function is_buffer_active(buffer_number)
 end
 
 
-local function process_build_script(argument)
+local function process_build_script(opts)
 
-    -- Supporting null-argument values, check for that.
-    local argument_value = ""
-    if argument then
-        argument_value = argument
-    else
-        print("CJH: Warning: CLI command wasn't provided.")
-        return
+    -- If we did not provide a build script through the command
+    -- invocation, use the default one from our config.
+    local argument
+    if opts.fargs == nil or opts.fargs[1] == nil then
+        argument = configuration.default_script
+    else 
+        argument = opts.fargs[1]
     end
 
-    -- Print debug for the user.
-    local print_string = "CJH: Executing build routine: " .. argument_value .. "..."
-    print(print_string)
+    -- Check if the argument is actually there.
+    if argument == nil or argument == '' then
+        print("A build command was not provided and default was not set.")
+    end
 
     -- Determine if the screen is currently split.
     local win_amount = #vim.api.nvim_tabpage_list_wins(0)
@@ -56,17 +62,26 @@ local function process_build_script(argument)
     -- Set the current buffer.
     vim.api.nvim_set_current_buf(current_buffer)
 
+    -- Callbacks.
+    local on_output = function()
+        vim.api.nvim_buf_set_lines(current_buffer, -2, -1, false, data)
+    end
+
+    local on_exit = function()
+        print("Build complete.")
+    end
+
     -- Start the job.
     local job_identifier = vim.fn.jobstart(argument, {
         on_stdout = function(_, data)
             vim.api.nvim_buf_set_lines(current_buffer, -2, -1, false, data)
-            vim.cmd(":%s/\r/")
         end,
         on_exit = function(_, exit_code)
-            print("CJH: Build job complete.")
+            print("Build job complete.")
         end
     })
-    
+
+
 end
 
 local function is_string_empty(string)
@@ -146,7 +161,7 @@ local function process_jump_to()
     else
 
         -- Inform the user that the line wasn't a jumpable line.
-        print("CJH: Unable to find jumpable position.")
+        print("Unable to find jumpable position.")
 
     end
 
@@ -155,4 +170,7 @@ end
 -- Create userspace commands.
 vim.api.nvim_create_user_command('MagicBuild', process_build_script, { nargs='?' })
 vim.api.nvim_create_user_command('MagicJump', process_jump_to, {})
+
+-- Return our configuration.
+return configuration
 

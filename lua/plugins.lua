@@ -50,7 +50,7 @@ local function initialize_plugins()
         auto_install = true,
         sync_install = false,
         highlight = {
-            enabled = true,
+            enable = true,
             additional_vim_regex_highlighting = false,
         },
 
@@ -61,8 +61,15 @@ local function initialize_plugins()
     vim.cmd([[ let g:airline_powerline_fonts = 1 ]])
 
     -- Load custom plugins.
+    --      GitHelper requires no additional configuration.
     require('magictrick/githelper')
+
+    --      Jumper will need a default build script defined at startup.
     require('magictrick/jumper')
+    if is_windows then
+        require('magictrick/jumper').default_script = 'pwsh ./build.ps1'
+    end
+
 
 end
 

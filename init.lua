@@ -18,8 +18,16 @@ vim.opt.cursorline      = true
 vim.g.leader            = "\\"
 
 -- System agnostic keymaps.
+--      Telescope keymaps.
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
+vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {})
+
+--      Buffer related commands.
 vim.keymap.set('n', '<C-i>', ':bnext<cr>', {})
 vim.keymap.set('n', '<S-tab>', ':bprevious<cr>', {})
 vim.keymap.set('n', '<leader>kb', ':bp|bd #<cr>', {})
+
+--      Magic Tricks' custom commands.
+vim.keymap.set('n', '<C-b>', ':MagicBuild<cr>', {})
+vim.keymap.set('n', '<leader>jj', ':MagicJump<cr>', {})
 
