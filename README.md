@@ -1,79 +1,49 @@
 
 # Magic Trick's NVIM Configuration Setup
 
-This is my personal Neovim init script. If you want to use this setup, clone it
-somewhere accessible that you can `source` via absolute path.
+This is my personal Neovim configuration file. For the most part, it's an out-of-the-box
+experience plus some custom lua scripts to aid in my personal development cycles.
 
-If you're using Windows with Visual Studio / MSVC, you will want access to the
-MSVC build tools set of commands with PowerShell. In order to do this, you will
-need to source the commands to path with your PowerShell profile script using:
+**Windows Environment Setup:**
+
+I use MSVC build tools and CMake and to expose these to the command line, you can
+add these to your PowerShell startup script. I personally wrap them in a function,
+but if you want them to automatically startup, you can simply copy and paste them in.
+
+You will find your startup script in `Documents/PowerShell/profile.ps1`; if it 
+doesn't exist, create the directory and file to make one. This is loaded on startup.
+
+*Note, you will need to do this in order to compile Treesitter correctly since it
+will attempt to use MSVC x86 compilation rather than x64 like it should.*
 
 ```
 Import-Module "C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools\Microsoft.VisualStudio.DevShell.dll"
 Enter-VsDevShell -VsInstallPath "C:\Program Files\Microsoft Visual Studio\2022\Community" -DevCmdArguments '-arch=x64'
 ```
 
-### Using VimPlug
+## Adding Packer
 
-I use a plugin manager called VimPlug to fetch third-party plugins. You will need
-to install it in order to make the plugins work. Depending on your platform, your
-method of installation differs. The commands to install VimPlug are below:
+Packer is my plugin manager of choice. You simply need to clone it for your
+respective operating system to make `init.lua` launch correctly. You simply
+copy and paste the respective shell commands for your OS and it will automatically
+install for you.
 
-Unix:
-```
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-```
+**[Packer Repository](https://github.com/wbthomason/packer.nvim)**
 
-Windows Powershell
-```
-iwr -useb https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim |`
-    ni "$(@($env:XDG_DATA_HOME, $env:LOCALAPPDATA)[$null -eq $env:XDG_DATA_HOME])/nvim-data/site/autoload/plug.vim" -Force
-```
+## Jumper
 
-Once complete, you can execute `PlugInstall` within Neovim to retrieve the plugins.
+Jumper is a build to for C/C++ programming (tested only for Windows) which dumps
+CMake / MSVC compilation output to a scratch buffer. From there, you can find
+error and warning outputs in the buffer and jump straight to the location as shown
+in the error. It's not particularly robust and I wish there was a better way to
+make this work, but for C++ development on Windows, it seems to work find for me.
+Your mileage may vary.
 
-### Custom Plugins
-
-I will add my own custom plugins from time to time. Here is the short documentation of them.
-
-**CJH Compile-Jump-Helper:**
-
-CJH is a utility that allows users to execute commands (particularly build scripts)
-and dumps them to a scratch buffer. From there, CJH provides a jump-to command which
-parses the current line a cursor is on and attempts to determine if it is a compiler
-error with a file location and line number/cursor location. It will then jump
-straight to that file for you.
-
-When you recompile, it will attempt to find an existing scratch buffer and dump
-to that rather than regenerating a new scratch buffer.
-
-This utility was designed for MSVC's error output, so g++/clang error output
-matching currently isn't tested/support.
-
-If you want to use CJH in your own NVIM configuration, download the lua file and
-source it within your vim init script and map the lua keybindings as you like:
-
-```vimscript
-" These are the respective keymaps I use to interact with CJH.
-nnoremap <C-b> :CJHBuild pwsh.exe ./build.ps1<cr>
-nnoremap <C-a><C-a> :CJHJumpTo<cr>
-
-" This will provide Neovim the leader commands necessary for CJH.
-command! -nargs=? CJHBuild lua require("CJH").build_script(<f-args>)
-command! CJHJumpTo lua require("CJH").jump_to()
-```
-
-For mapping `CJHBuild`, you establish a buildscript and invoke that, or manually
-type in the build routine yourself. In my case, I run a powershell script that does
-the build process for me.
-
-How it works below:
+*Untested for Linux as of now.*
 
 ![](assets/CJHDemo.gif)
 
 ### License
 
-Free to use, modify, without warranty. It's just a config setup, nothing special.
-Go wild.
+Free to use, modify, and distribute without warranty.
 
