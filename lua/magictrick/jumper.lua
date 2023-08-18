@@ -152,8 +152,7 @@ local function process_jump_to()
 
 end
 
-return {
-    build_script = process_build_script,
-    jump_to = process_jump_to
-}
+-- Create userspace commands.
+vim.api.nvim_create_user_command('MagicBuild', process_build_script, { nargs='?' })
+vim.api.nvim_create_user_command('MagicJump', process_jump_to, {})
 
