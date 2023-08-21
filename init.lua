@@ -21,13 +21,17 @@ vim.g.leader            = "\\"
 --      Telescope keymaps.
 vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, {})
 vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep, {})
+vim.keymap.set('n', '<leader>ft', require('telescope.builtin').treesitter, {})
 
 --      Buffer related commands.
-vim.keymap.set('n', '<C-i>', ':bnext<cr>', {})
-vim.keymap.set('n', '<S-tab>', ':bprevious<cr>', {})
-vim.keymap.set('n', '<leader>kb', ':bp|bd #<cr>', {})
+vim.keymap.set('n', '<C-i>', ':bnext<cr>', {})          -- Next buffer.
+vim.keymap.set('n', '<S-tab>', ':bprevious<cr>', {})    -- Prev buffer.
+vim.keymap.set('n', '<leader>bk', ':bp|bd! #<cr>', {})  -- Kill buffer.
+vim.keymap.set('n', '<leader>bs', ':vsplit<cr>', {})    -- Split buffer.
+vim.keymap.set('n', '<leader>bn', ':bn<cr>', {})        -- new buffer.
 
---      Magic Tricks' custom commands.
-vim.keymap.set('n', '<C-b>', ':MagicBuild<cr>', {})
-vim.keymap.set('n', '<leader>jj', ':MagicJump<cr>', {})
+--      Magic Tricks' custom commands. (May not work for your env.)
+vim.keymap.set('n', '<C-b>', ':MagicBuild<cr>', {})     -- Runs build on Control-b.
+vim.keymap.set('n', '<leader>jj', ':MagicJump<cr>', {}) -- Jumps to file from build output.
+
 
