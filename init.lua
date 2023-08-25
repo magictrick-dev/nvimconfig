@@ -27,7 +27,7 @@ vim.keymap.set('n', '<leader>ft', require('telescope.builtin').treesitter, {})
 vim.keymap.set('n', '<C-i>', ':bnext<cr>', {})          -- Next buffer.
 vim.keymap.set('n', '<S-tab>', ':bprevious<cr>', {})    -- Prev buffer.
 vim.keymap.set('n', '<leader>bk', ':bp|bd! #<cr>', {})  -- Kill buffer.
-vim.keymap.set('n', '<leader>bs', ':vsplit<cr>', {})    -- Split buffer.
+vim.keymap.set('n', '<leader>bs', ':vsplit<cr><C-w><C-w>', {})    -- Split buffer.
 vim.keymap.set('n', '<leader>bn', ':bn<cr>', {})        -- new buffer.
 
 --      Magic Tricks' custom commands. (May not work for your env.)
