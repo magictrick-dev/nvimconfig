@@ -1,10 +1,10 @@
---
+-- -----------------------------------------------------------------------------
 -- Magic Tricks' Neovim Configuration File
---
-
+-- -----------------------------------------------------------------------------
 -- Load our packer plugins and then initialize them.
+local is_windows = vim.fn.has('win32')
 local plugins = require('plugins')
-plugins.init_plugins()
+plugins.init_plugins(is_windows)
 
 -- Basic neovim configuration setup.
 vim.opt.tabstop         = 4
@@ -34,4 +34,10 @@ vim.keymap.set('n', '<leader>bn', ':bn<cr>', {})        -- new buffer.
 vim.keymap.set('n', '<C-b>', ':MagicBuild<cr>', {})     -- Runs build on Control-b.
 vim.keymap.set('n', '<leader>jj', ':MagicJump<cr>', {}) -- Jumps to file from build output.
 
+--      Platform related key-bindings.
+if is_windows then
+    vim.keymap.set('n', '<F3>', ':!explorer .<cr><cr>', {})
+    vim.keymap.set('n', '<F5>', ':!pwsh ./run.ps1<cr><cr>', {})
+    vim.keymap.set('n', '<F8>', ':!pwsh ./debug.ps1<cr><cr>', {})
+end
 

@@ -26,11 +26,11 @@ require("packer").startup(function(use)
 end)
 
 -- Our initializer function.
-local function initialize_plugins()
+local function initialize_plugins(platform_is_windows)
 
     -- Determine our platform. If it isn't windows, it is probably
     -- a POSIX compliant environment.
-    local is_windows = vim.fn.has('win32')
+    local is_windows = platform_is_windows
 
     -- Tree-sitter configuration.
     --      Establish the platform to setup compile chain for treesitter.
