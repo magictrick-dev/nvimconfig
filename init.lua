@@ -47,6 +47,8 @@ vim.keymap.set('n', '<leader>dr(', 'F(lvf)hd<esc>i', {})
 vim.keymap.set('n', '<leader>d"', 'F"lvf"hd<esc>', {})
 vim.keymap.set('n', '<leader>dr"', 'F"lvf"hd<esc>i', {})
 
+vim.keymap.set('n', '<leader>dbody{', '?{<cr>V/}<cr>dO<esc>i{<cr>}<esc>:noh<cr>O', {}) -- Crazy ass macro.
+
 --      Magic Tricks' custom commands. (May not work for your env.)
 vim.keymap.set('n', '<C-b>', ':MagicBuild<cr>', {})     -- Runs build on Control-b.
 vim.keymap.set('n', '<leader>jj', ':MagicJump<cr>', {}) -- Jumps to file from build output.
